@@ -1,0 +1,10 @@
+{
+  "defaultIP": "http://127.0.0.1:5050/api/v1.0",
+  "loginIP": "/login",
+  "registerIP": "/register",
+  "getSuppliersListIP": "/suppliers",
+  "addNewIP": "/add",
+  "onlinePng": "/home/monstrillllo/PycharmProjects/flaskProject/client/img/checked.png",
+  "offlinePng": "/home/monstrillllo/PycharmProjects/flaskProject/client/img/remove.png",
+  "addTypesToFindPng": "/home/monstrillllo/PycharmProjects/flaskProject/client/img/plus.png"
+}

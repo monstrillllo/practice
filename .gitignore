@@ -1,0 +1,6 @@
+.idea/
+*.ui
+__pycache__/
+*.sql
+venv/
+
