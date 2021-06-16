@@ -44,8 +44,9 @@ class Client_App(QtWidgets.QMainWindow, ClientMainWindowUI.Ui_Client):
     def check_connection(self):
         try:
             response = requests.post(self.config['defaultIP'])
+            print(type(response.json()['server_status']))
             if response.json()['server_status'] == 'online':
-                pixmap = QPixmap(self.config['checkedPng'])
+                pixmap = QPixmap(self.config['onlinePng'])
                 self.lableStatus.setPixmap(pixmap)
             else:
                 pixmap = QPixmap(self.config['offlinePng'])

@@ -13,6 +13,7 @@ class Find(QtWidgets.QDialog, FindWindowUI.Ui_DialogFind):
         super(Find, self).__init__(parent)
         self.setupUi(self)
         self.parent = parent
+        self.findData = {}
         self.config = {}
         self.load_config()
         self.rus_en_heders = {
@@ -40,7 +41,14 @@ class Find(QtWidgets.QDialog, FindWindowUI.Ui_DialogFind):
             self.config = json.load(conf)
 
     def find(self):
-        pass
+        for text in self.findingBars:
+            current_type = str(text[0].currentText())
+            current_value = str(text[1].text())
+            if current_type not in self.findData.keys():
+                self.findData[current_type] = [current_value]
+            else:
+                self.findData[current_type].append(current_value)
+        print(self.findData)
 
     def createFindBars(self):
         self.comboBox = QtWidgets.QComboBox(self)
