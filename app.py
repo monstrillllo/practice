@@ -127,9 +127,13 @@ def login():
     else:
         return jsonify({'status': 400})
 
-@app.route('/api/v1.0/getColumns', methods=['GET'])
-def getColumns():
-    return jsonify(dbase.getColums(request.json()['table_name']))
+
+@app.route('/api/v1.0/find', methods=['GET'])
+def find():
+    if request:
+        # print(request.json)
+        # print(dbase.find(request.json))
+        return jsonify({'suppliers': dbase.find(request.json)})
 
 
 if __name__ == '__main__':

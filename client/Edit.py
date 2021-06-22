@@ -11,20 +11,25 @@ class Edit(QtWidgets.QDialog, EditWindow.Ui_DialogEdit):
         super(Edit, self).__init__(parent)
         self.setupUi(self)
         self.parent = parent
-        self.selected = selected
-        self.config = {}
-        self.load_config()
-        self.load_not_edited_data()
-        self.id = self.parent.tableMain.item(self.selected, 0).text()
-        self.org = None
-        self.before = None
-        self.product = None
-        self.load = None
-        self.unload = None
-        self.responsible = None
-        self.comment = None
-        self.pushButton.clicked.connect(self.edit)
-        self.show()
+        if selected != -1:
+            self.selected = selected
+            self.config = {}
+            self.load_config()
+            self.load_not_edited_data()
+            self.id = self.parent.tableMain.item(self.selected, 0).text()
+            self.org = None
+            self.before = None
+            self.product = None
+            self.load = None
+            self.unload = None
+            self.responsible = None
+            self.comment = None
+            self.pushButton.clicked.connect(self.edit)
+            self.show()
+        else:
+            QMessageBox.critical(self.parent, "ERROR", "Row doesnt selected!", QMessageBox.Ok)
+            self.close()
+
 
     def load_config(self):
         with open('client/config.json', encoding='UTF-8') as conf:
@@ -69,5 +74,5 @@ class Edit(QtWidgets.QDialog, EditWindow.Ui_DialogEdit):
             else:
                 QMessageBox.critical(self, "ERROR", "Something wrong!", QMessageBox.Ok)
         except:
-            print('Something wrong while editing!')
+            QMessageBox.critical(self, "ERROR", "Probably connection error!", QMessageBox.Ok)
 

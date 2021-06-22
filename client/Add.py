@@ -55,4 +55,4 @@ class AddNew_Window(QtWidgets.QDialog, AddWindow.Ui_DialogAddNew):
             else:
                 QMessageBox.critical(self, "ERROR", "Something wrong!", QMessageBox.Ok)
         except:
-            print('Something wrong while adding!')
+            QMessageBox.critical(self, "ERROR", "Probably connection error!", QMessageBox.Ok)

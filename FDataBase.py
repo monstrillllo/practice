@@ -112,3 +112,55 @@ class FDataBase:
                 return res
         except sqlite3.Error as e:
             print("Ошибка получения из db " + str(e))
+
+    def find(self, find_data):
+        # print(find_data.keys)
+        table_headers= {
+            '№': 'id',
+            'организация': 'organisation',
+            'контракт до': 'until',
+            'категория товара': 'category',
+            'дата погрузки': 'load_date',
+            'дата разгрузки': 'unload_date',
+            'отв. лицо': 'responsible',
+            'комментарий': 'comment'
+        }
+        all_find_criteria = ''
+        for key in list(find_data.keys()):
+            # print(key)
+            current_find_criteria = f'{table_headers[key]} in ( '
+            # print(len(find_data[key])-1)
+            for value in find_data[key]:
+                # print(value)
+                # print(len(find_data[key])-1)
+                if find_data[key].index(value) != len(find_data[key])-1:
+                    current_find_criteria += f'\'{value}\', '
+                else:
+                    current_find_criteria += f'\'{value}\' )'
+            if list(find_data.keys()).index(key) != len(find_data)-1:
+                all_find_criteria += f"{current_find_criteria} AND "
+            else:
+                all_find_criteria += f"{current_find_criteria}"
+        # print(all_find_criteria)
+        try:
+            query = f'SELECT id, organisation, until, category, load_date, unload_date, responsible, comment ' \
+                    f'FROM suppliers WHERE {all_find_criteria}'
+            print(query)
+            self.__cur.execute(query)
+            res = self.__cur.fetchall()
+            if res:
+                result = []
+                for f in res:
+                    result.append({
+                        'id': f[0],
+                        'organisation': f[1],
+                        'until': f[2],
+                        'category': f[3],
+                        'load_date': f[4],
+                        'unload_date': f[5],
+                        'responsible': f[6],
+                        'comment': f[7],
+                    })
+                return result
+        except sqlite3.Error as e:
+            print("Ошибка поиска " + str(e))

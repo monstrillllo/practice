@@ -47,6 +47,9 @@ class Login_Window(QtWidgets.QDialog, LoginWindow.Ui_Dialog):
                         self.parent.updateIpInputStatus(False)
                     else:
                         self.parent.updateIpInputStatus()
+                    self.parent.authorized = True
+                    self.parent.check_connection()
+                    self.parent.check_authorized()
                     self.close()
                 else:
                     if self.radioButton.isChecked():
@@ -54,6 +57,6 @@ class Login_Window(QtWidgets.QDialog, LoginWindow.Ui_Dialog):
                     else:
                         QMessageBox.critical(self, "ERROR", "Login already in use!", QMessageBox.Ok)
             except:
-                print('Something wrong!')
+                QMessageBox.critical(self, "ERROR", "Probably connection error!", QMessageBox.Ok)
         else:
             QMessageBox.critical(self, "ERROR", "All fields must be filled!", QMessageBox.Ok)

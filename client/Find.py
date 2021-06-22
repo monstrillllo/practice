@@ -48,7 +48,19 @@ class Find(QtWidgets.QDialog, FindWindowUI.Ui_DialogFind):
                 self.findData[current_type] = [current_value]
             else:
                 self.findData[current_type].append(current_value)
-        print(self.findData)
+        try:
+            res = requests.get(self.config['defaultIP']+self.config['findIP'], json=self.findData).json()
+            if res['suppliers']:
+                # print(self.parent.getAllSuppliers())
+                # print(res)
+                self.parent.updateTable(res)
+                self.close()
+            else:
+                QMessageBox.critical(self, "ERROR", "Cant find!", QMessageBox.Ok)
+                self.findData = {}
+        except:
+            QMessageBox.critical(self, "ERROR", "Probably connection error!", QMessageBox.Ok)
+            self.findData = {}
 
     def createFindBars(self):
         self.comboBox = QtWidgets.QComboBox(self)

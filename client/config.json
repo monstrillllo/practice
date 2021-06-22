@@ -4,7 +4,9 @@
   "registerIP": "register",
   "getSuppliersListIP": "suppliers",
   "addNewIP": "add",
+  "findIP": "find",
   "onlinePng": "/home/monstrillllo/PycharmProjects/flaskProject/client/img/checked.png",
   "offlinePng": "/home/monstrillllo/PycharmProjects/flaskProject/client/img/remove.png",
-  "addTypesToFindPng": "/home/monstrillllo/PycharmProjects/flaskProject/client/img/plus.png"
+  "addTypesToFindPng": "/home/monstrillllo/PycharmProjects/flaskProject/client/img/plus.png",
+  "refreshPng": "/home/monstrillllo/PycharmProjects/flaskProject/client/img/refresh.png"
 }
