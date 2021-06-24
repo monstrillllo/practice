@@ -53,26 +53,32 @@ class Edit(QtWidgets.QDialog, EditWindow.Ui_DialogEdit):
         self.unload = self.textUnload.toPlainText()
         self.responsible = self.textResponsible.toPlainText()
         self.comment = self.textComment.toPlainText()
+        if self.org and self.before and self.product and self.load and self. unload and self. responsible and self.comment:
+            return True
+        else:
+            return False
 
     def edit(self):
-        self.load_from_form()
-        data = {
-            'organisation': self.org,
-            'until': self.before,
-            'category': self.product,
-            'load_date': self.load,
-            'unload_date': self.unload,
-            'responsible': self.responsible,
-            'comment': self.comment
-        }
-        try:
-            ip = self.config['defaultIP']+self.config['getSuppliersListIP']+'/'+self.id
-            response = requests.put(ip, json=data)
-            if response.json()['status'] == 'success':
-                self.parent.updateTable(self.parent.getAllSuppliers())
-                self.close()
-            else:
-                QMessageBox.critical(self, "ERROR", "Something wrong!", QMessageBox.Ok)
-        except:
-            QMessageBox.critical(self, "ERROR", "Probably connection error!", QMessageBox.Ok)
-
+        fields = self.load_from_form()
+        if fields:
+            data = {
+                'organisation': self.org,
+                'until': self.before,
+                'category': self.product,
+                'load_date': self.load,
+                'unload_date': self.unload,
+                'responsible': self.responsible,
+                'comment': self.comment
+            }
+            try:
+                ip = self.config['defaultIP']+self.config['getSuppliersListIP']+'/'+self.id
+                response = requests.put(ip, json=data)
+                if response.json()['status'] == 'success':
+                    self.parent.updateTable(self.parent.getAllSuppliers())
+                    self.close()
+                else:
+                    QMessageBox.critical(self, "ERROR", "Something wrong!", QMessageBox.Ok)
+            except:
+                QMessageBox.critical(self, "ERROR", "Probably connection error!", QMessageBox.Ok)
+        else:
+            QMessageBox.critical(self, "ERROR", "All fields must be field!", QMessageBox.Ok)

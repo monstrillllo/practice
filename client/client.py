@@ -23,10 +23,10 @@ class Client_App(QtWidgets.QMainWindow, ClientMainWindowUI.Ui_Client):
         #     self.updateTable(self.getAllSuppliers())
         # except:
         #     self.check_connection()
-        # self.btnRefresh.setIcon(QIcon(self.config['refreshPng']))
+        self.btnRefresh.setIcon(QIcon(self.config['refreshPng']))
         # if self.check_authorized():
         #     self.check_connection()
-        # self.btnCheckConn.clicked.connect(self.check_connection)
+        self.btnCheckConn.clicked.connect(self.check_connection)
         # self.updateTable(self.getAllSuppliers())
         self.btnLogin.clicked.connect(self.login)
         self.btnAdd.clicked.connect(self.addNew)
